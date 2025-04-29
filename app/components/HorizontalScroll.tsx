@@ -10,9 +10,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface HorizontalScrollProps {
   children: React.ReactNode;
+  direction?: "left" | "right";
 }
 
-export default function HorizontalScroll({ children }: HorizontalScrollProps) {
+export default function HorizontalScroll({
+  children,
+  direction = "left",
+}: HorizontalScrollProps) {
   // Refs para acceder a los elementos del DOM
   const containerRef = useRef<HTMLDivElement>(null); // Contenedor principal que se mantiene fijo
   const contentRef = useRef<HTMLDivElement>(null); // Contenedor del contenido que se moverá horizontalmente
@@ -41,6 +45,13 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
     // ya que necesitamos que el contenedor sea más ancho que la ventana
     content.style.width = `${totalWidth}px`;
 
+    // Posicionamos inicialmente el contenido según la dirección
+    if (direction === "right") {
+      content.style.transform = `translateX(${-(
+        totalWidth - window.innerWidth
+      )}px)`;
+    }
+
     // CONFIGURACIÓN DE GSAP
     // --------------------
     // gsap.to() crea una animación que va desde el estado actual
@@ -52,7 +63,7 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
       // El valor negativo es porque queremos mover el contenido hacia la izquierda
       // window.innerWidth es el ancho de la ventana
       // La fórmula totalWidth - window.innerWidth nos da la distancia total a mover
-      x: () => -(totalWidth - window.innerWidth),
+      x: () => (direction === "left" ? -(totalWidth - window.innerWidth) : 0),
 
       // ease: Tipo de interpolación de la animación
       // 'none' significa movimiento lineal, sin aceleración ni desaceleración
@@ -103,16 +114,21 @@ export default function HorizontalScroll({ children }: HorizontalScrollProps) {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [direction]);
 
   return (
     // Contenedor principal con overflow hidden para evitar scroll horizontal nativo
     <div
       ref={containerRef}
-      className="w-screen h-screen overflow-hidden bg-black"
+      className="w-screen h-screen overflow-hidden bg-transparent"
     >
       {/* Contenedor del contenido que se moverá horizontalmente */}
-      <div ref={contentRef} className="flex h-full">
+      <div
+        ref={contentRef}
+        className={`flex h-full [&>*]:flex-shrink-0 ${
+          direction === "right" ? "flex-row-reverse" : ""
+        }`}
+      >
         {children}
       </div>
     </div>
