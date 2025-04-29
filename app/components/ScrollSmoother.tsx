@@ -3,7 +3,9 @@ import ReactLenis, { useLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const ScrollSmoother: React.FC<{ children: any }> = ({ children }) => {
+const ScrollSmoother: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const pathname = usePathname();
   const lenis = useLenis();
 
