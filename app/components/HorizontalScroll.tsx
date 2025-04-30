@@ -94,7 +94,7 @@ export default function HorizontalScroll({
         // 1 = movimiento suave que sigue el scroll
         // Valores más altos = más retraso en el seguimiento
         // Valores más bajos = seguimiento más inmediato
-        scrub: 1,
+        scrub: 5,
 
         // invalidateOnRefresh: Recalcula los valores cuando la ventana cambia de tamaño
         // Esto es importante para mantener la animación funcionando correctamente

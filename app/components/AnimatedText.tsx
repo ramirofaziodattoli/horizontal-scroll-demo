@@ -48,7 +48,7 @@ export default function AnimatedText({
 
   return (
     <motion.div
-      className={`overflow-hidden justify-center ${className}`}
+      className={`overflow-hidden ${className}`}
       variants={container}
       initial="hidden"
       whileInView="visible"

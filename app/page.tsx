@@ -6,10 +6,11 @@ export default function Home() {
   return (
     <>
       {/* // Componente HorizontalScroll que maneja la lógica del scroll horizontal */}
-      <div className="grid place-items-center h-[800px] w-full">
-        <h1 className="text-5xl uppercase font-normal text-center text-white">
-          Horizontal Scroll Demo
-        </h1>
+      <div className="grid place-items-center !h-screen w-full">
+        <AnimatedText
+          text="Horizontal Scroll Demo"
+          className="text-3xl md:text-6xl text-white uppercase tracking-wider text-center"
+        />
       </div>
       <HorizontalScroll direction="left">
         {Array.from({ length: 5 }).map((_, index) => (
@@ -41,10 +42,11 @@ export default function Home() {
           </div>
         ))}
       </HorizontalScroll>
-      <div className="grid place-items-center !h-[800px] w-full">
-        <h1 className="text-5xl uppercase font-normal text-center text-white">
-          Horizontal Scroll Demo
-        </h1>
+      <div className="grid place-items-center !h-screen w-full">
+        <AnimatedText
+          text="Horizontal Scroll Demo"
+          className="text-3xl md:text-6xl text-white uppercase tracking-wider text-center"
+        />
       </div>
     </>
   );
